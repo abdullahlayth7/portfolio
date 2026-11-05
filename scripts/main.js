@@ -46,15 +46,33 @@ const animateText = (section) => {
     let letterIndex = 0;
     nodes.forEach((textNode) => {
       const fragment = document.createDocumentFragment();
+      let word = null;
+
+      const appendWord = () => {
+        if (word) fragment.appendChild(word);
+        word = null;
+      };
+
       textNode.nodeValue.split('').forEach((character) => {
+        if (/\s/.test(character)) {
+          appendWord();
+          fragment.appendChild(document.createTextNode(character));
+          return;
+        }
+
+        if (!word) {
+          word = document.createElement('span');
+          word.className = 'text-word';
+        }
         const letter = document.createElement('span');
         letter.className = 'text-letter';
         letter.setAttribute('aria-hidden', 'true');
-        letter.textContent = character === ' ' ? '\u00a0' : character;
+        letter.textContent = character;
         letter.style.animationDelay = `${Math.min(80 + (letterIndex * 18), 780) + (targetIndex * 70)}ms`;
-        fragment.appendChild(letter);
+        word.appendChild(letter);
         letterIndex += 1;
       });
+      appendWord();
       textNode.parentNode.replaceChild(fragment, textNode);
     });
   });
@@ -102,9 +120,8 @@ updatePage();
 
 // Optional ambient canvas: enabled only on larger screens that allow motion.
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const compactViewport = window.matchMedia('(max-width: 760px)').matches;
 
-if (!reducedMotion && !compactViewport && particleCanvases.length) {
+if (!reducedMotion && particleCanvases.length) {
   const particleSystems = particleCanvases.map((canvas) => {
     const context = canvas.getContext('2d');
     return { canvas, context, kind: canvas.parentElement.id, particles: [], targets: [], lastFrame: 0 };
@@ -138,7 +155,8 @@ if (!reducedMotion && !compactViewport && particleCanvases.length) {
     system.canvas.height = Math.round(rect.height * ratio);
     system.context.setTransform(ratio, 0, 0, ratio, 0, 0);
     system.targets = buildTargets(system, rect);
-    const count = Math.min(24, Math.max(15, system.targets.length));
+    const isCompact = window.matchMedia('(max-width: 760px)').matches;
+    const count = isCompact ? Math.min(10, Math.max(8, system.targets.length)) : Math.min(24, Math.max(15, system.targets.length));
     system.particles = Array.from({ length: count }, (_, index) => ({
       x: Math.random() * rect.width,
       y: Math.random() * rect.height,
