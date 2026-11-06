@@ -157,8 +157,12 @@ h1 em,h2 em { color:var(--steel); font-style:normal; }
   .page-rail { padding:0 16px; }
   .rail-logo { width:32px; }
   .mobile-current { display:block; margin-left:auto; color:var(--steel); font:10px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.1em; text-transform:uppercase; }
-  .mobile-menu { display:block; min-width:44px; min-height:44px; margin-left:16px; padding:0; color:var(--cream); background:none; border:0; font:10px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.1em; text-transform:uppercase; }
-  .mobile-menu span { margin-left:5px; font-size:14px; vertical-align:-1px; }
+  .mobile-menu { display:grid; width:44px; min-width:44px; height:44px; min-height:44px; margin-left:12px; padding:0; place-items:center; color:var(--cream); background:none; border:0; }
+  .menu-lines { display:grid; width:20px; gap:4px; }
+  .menu-lines i { display:block; width:100%; height:1px; background:currentColor; transform-origin:center; transition:transform .2s ease,opacity .2s ease; }
+  .mobile-menu.is-open .menu-lines i:first-child { transform:translateY(5px) rotate(45deg); }
+  .mobile-menu.is-open .menu-lines i:nth-child(2) { opacity:0; }
+  .mobile-menu.is-open .menu-lines i:last-child { transform:translateY(-5px) rotate(-45deg); }
   .rail-links { display:none; }
   .page-rail.is-menu-open .rail-links { position:fixed; inset:var(--nav-height) 0 0; display:grid; grid-template-columns:1fr; align-content:start; padding:24px 20px; background:var(--obsidian); border-top:1px solid var(--graphite); }
   .page-rail.is-menu-open .rail-links a { flex-direction:row-reverse; justify-content:flex-end; min-height:62px; gap:12px; padding:0; border-bottom:1px solid var(--graphite); font-size:12px; letter-spacing:.1em; }
@@ -175,19 +179,22 @@ h1 em,h2 em { color:var(--steel); font-style:normal; }
   .work { height:auto; min-height:var(--page-height); padding:76px 20px 40px; }
   .work-heading { margin:30px 0 24px; }
   .work h2,.now h2,.contact h2 { font-size:clamp(3rem,14vw,4.5rem); }
-  .case-files { display:grid; flex:none; grid-template-columns:1fr; grid-template-rows:none; gap:1px; margin-top:0; overflow:visible; }
-  .case-file,.case-file-primary { min-height:220px; height:auto; padding:22px; grid-row:auto; }
-  .case-file-primary { min-height:250px; }
-  .case-file h3,.case-file:not(.case-file-primary) h3 { font-size:clamp(2rem,11vw,3.8rem); }
-  .case-file p { margin-bottom:18px; }
+  .case-files { display:grid; flex:none; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:190px 150px; gap:1px; margin-top:0; overflow:visible; }
+  .case-file,.case-file-primary { min-height:0; height:auto; padding:16px; grid-row:auto; }
+  .case-file-primary { grid-column:span 2; }
+  .case-file h3,.case-file:not(.case-file-primary) h3 { font-size:clamp(1.3rem,6.5vw,2.1rem); line-height:.9; }
+  .case-file-primary h3 { font-size:clamp(2.2rem,11vw,3.6rem); }
+  .case-file p { margin:0 0 10px; font-size:12px; }
+  .case-file:not(.case-file-primary) p { display:none; }
+  .file-index,.case-file div { font-size:8px; letter-spacing:.08em; }
 
   .skills { min-height:var(--page-height); padding:72px 20px 40px; }
   .skills-header { margin-bottom:32px; }
   .skills h2 { font-size:clamp(3.25rem,15vw,5rem); }
-  .toolkit-grid { flex:none; grid-template-rows:none; }
-  .tool-card { min-height:190px; padding:18px; }
+  .toolkit-grid { flex:none; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:none; }
+  .tool-card { min-height:148px; padding:16px; }
   .tool-card h3 { font-size:15px; }
-  .tool-card p { font-size:11px; line-height:1.38; }
+  .tool-card p { display:none; }
   .tool-card div > span { font-size:9px; letter-spacing:.04em; }
 
   .now { padding-bottom:72px; }
@@ -200,8 +207,9 @@ h1 em,h2 em { color:var(--steel); font-style:normal; }
 }
 
 @media (max-width:440px) {
-  .toolkit-grid { grid-template-columns:1fr; }
-  .tool-card { min-height:172px; }
+  .tool-card { min-height:138px; padding:14px; }
+  .tool-card h3 { font-size:14px; }
+  .tool-card div > span { font-size:8px; }
 }
 
 @media (prefers-reduced-motion:reduce) {
@@ -216,4 +224,5 @@ h1 em,h2 em { color:var(--steel); font-style:normal; }
 
 @media (max-width:760px) {
   .ambient-particles { opacity:.28; }
+  .work::before,.work::after,.skills::before,.skills::after,.contact::before,.contact::after { display:none; }
 }

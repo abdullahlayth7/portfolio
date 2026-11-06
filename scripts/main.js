@@ -102,15 +102,17 @@ const updatePage = () => {
 
 const closeMenu = (returnFocus) => {
   rail.classList.remove('is-menu-open');
+  menu.classList.remove('is-open');
   menu.setAttribute('aria-expanded', 'false');
-  menu.querySelector('span').textContent = '+';
+  menu.setAttribute('aria-label', 'Open navigation');
   if (returnFocus) menu.focus();
 };
 
 const openMenu = () => {
   rail.classList.add('is-menu-open');
+  menu.classList.add('is-open');
   menu.setAttribute('aria-expanded', 'true');
-  menu.querySelector('span').textContent = '×';
+  menu.setAttribute('aria-label', 'Close navigation');
   if (links[0]) requestAnimationFrame(() => links[0].focus());
 };
 
