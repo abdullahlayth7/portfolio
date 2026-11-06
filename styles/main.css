@@ -170,11 +170,13 @@ h1 em,h2 em { color:var(--steel); font-style:normal; }
   .rail-links a::after { bottom:-3px; }
 
   .hero,.work,.skills,.now,.contact { min-height:var(--page-height); padding:72px 20px; }
-  .hero { padding-top:56px; gap:34px; }
-  .hero h1 { font-size:clamp(3.8rem,17vw,6rem); }
-  .intro { margin:26px 0 20px; }
+  .hero { grid-template-rows:auto minmax(180px,1fr); align-content:space-between; padding:calc(var(--nav-height) + 30px) 20px 28px; gap:18px; }
+  .eyebrow { margin-bottom:16px; }
+  .hero h1 { font-size:clamp(3.45rem,15vw,5.25rem); line-height:.84; }
+  .intro { margin:18px 0; font-size:15px; }
   .hero-meta { flex-wrap:wrap; gap:8px 14px; }
-  .mark-stage { min-height:210px; }
+  .mark-stage { width:100%; min-height:180px; max-height:30svh; align-self:end; }
+  .hero-mark { width:min(82vw,420px); }
 
   .work { height:auto; min-height:var(--page-height); padding:76px 20px 40px; }
   .work-heading { margin:30px 0 24px; }
@@ -189,27 +191,52 @@ h1 em,h2 em { color:var(--steel); font-style:normal; }
   .file-index,.case-file div { font-size:8px; letter-spacing:.08em; }
 
   .skills { min-height:var(--page-height); padding:72px 20px 40px; }
-  .skills-header { margin-bottom:32px; }
-  .skills h2 { font-size:clamp(3.25rem,15vw,5rem); }
+  .skills-header { margin-bottom:24px; }
+  .skills h2 { margin:12px 0 10px; font-size:clamp(2.8rem,13vw,3.8rem); }
+  .skills-header > p { font-size:13px; }
   .toolkit-grid { flex:none; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:none; }
-  .tool-card { min-height:148px; padding:16px; }
+  .tool-card { min-height:126px; padding:14px; }
   .tool-card h3 { font-size:15px; }
   .tool-card p { display:none; }
   .tool-card div > span { font-size:9px; letter-spacing:.04em; }
 
-  .now { padding-bottom:72px; }
-  .now-copy::before { top:140px; left:-13px; }
+  #about { display:flex; align-items:center; padding:calc(var(--nav-height) + 24px) 20px 28px; }
+  .now-copy { width:100%; }
+  .now-copy::before { top:120px; bottom:12px; left:-13px; }
   .about-grid::before,.education::before,.certifications::before { left:-16px; }
-  .now h2 { margin:30px 0 22px; }
-  #about h2,#contact h2 { font-size:clamp(2.7rem,12.5vw,3.8rem); line-height:.86; letter-spacing:-.085em; }
-  .about-grid,.education,.certifications { grid-template-columns:1fr; gap:14px; }
-  .about-role { margin-bottom:0; }
+  .now h2 { margin:0 0 16px; }
+  #about h2,#contact h2 { font-size:clamp(2.65rem,12vw,3.7rem); line-height:.87; letter-spacing:-.085em; }
+  .about-grid,.education,.certifications { grid-template-columns:minmax(82px,.48fr) minmax(0,1.52fr); gap:12px; }
+  .about-grid { padding-top:14px; }
+  .about-name { font-size:1.05rem; }
+  .about-role { margin:0; font-size:8px; letter-spacing:.08em; }
+  .about-copy > p { margin-bottom:10px; font-size:12.5px; line-height:1.38; }
+  .about-direction { margin-top:10px !important; }
+  .education,.certifications { margin-top:18px; padding-top:12px; }
+  .education > span,.certifications > span { font-size:8px; letter-spacing:.08em; }
+  .education strong { font-size:12px; }
+  .certification-list { gap:8px; }
+  .certification-list article { padding-bottom:8px; }
+  .certification-list h3 { font-size:12px; }
+  .certification-list p { font-size:10px; line-height:1.3; }
 }
 
 @media (max-width:440px) {
-  .tool-card { min-height:138px; padding:14px; }
+  .tool-card { min-height:118px; padding:12px; }
   .tool-card h3 { font-size:14px; }
   .tool-card div > span { font-size:8px; }
+}
+
+@media (min-width:761px) and (max-width:980px) {
+  .hero { min-height:var(--page-height); padding:96px 7vw 72px; }
+  .mark-stage { min-height:280px; }
+  .hero-mark { width:min(86vw,620px); }
+  .work { height:auto; min-height:var(--page-height); padding:96px 7vw 64px; }
+  .case-files { min-height:460px; }
+  .skills { padding:72px 7vw 56px; }
+  .contact { padding:96px 7vw; }
+  #about { display:flex; align-items:center; }
+  .now-copy { width:100%; }
 }
 
 @media (prefers-reduced-motion:reduce) {
@@ -223,6 +250,8 @@ h1 em,h2 em { color:var(--steel); font-style:normal; }
 }
 
 @media (max-width:760px) {
-  .ambient-particles { opacity:.28; }
+  .ambient-particles { opacity:.32; }
+  #signal .ambient-particles { opacity:.42; }
+  #contact .ambient-particles { opacity:.38; }
   .work::before,.work::after,.skills::before,.skills::after,.contact::before,.contact::after { display:none; }
 }

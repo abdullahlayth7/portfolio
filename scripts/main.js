@@ -162,7 +162,7 @@ if (!reducedMotion && particleCanvases.length) {
     system.particles = Array.from({ length: count }, (_, index) => ({
       x: Math.random() * rect.width,
       y: Math.random() * rect.height,
-      targetIndex: index % system.targets.length,
+      targetIndex: Math.floor(index * system.targets.length / count),
       phase: Math.random() * Math.PI * 2,
       size: Math.random() * 1.4 + 0.6,
     }));
